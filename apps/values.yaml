@@ -3,7 +3,7 @@ config:
     destination:
       server: https://kubernetes.default.svc
     source:
-      repoURL: https://github.com/mattinm/argcd-apps
+      repoURL: https://github.com/mattinm/argcd-apps.git
       targetRevision: master
 
 applications:
