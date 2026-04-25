@@ -10,12 +10,12 @@ metadata:
 spec:
   destination:
     namespace: {{ .namespace | default .name | quote }}
-    server: {{ .spec.destination.server | quote }}
+    server: {{ $config.spec.destination.server | quote }}
   project: default
   source:
     path: {{ .path | default .name | quote }}
-    repoURL: {{ .spec.source.repoURL }}
-    targetRevision: {{ .spec.source.targetRevision }}
+    repoURL: {{ $config.spec.source.repoURL }}
+    targetRevision: {{ $config.spec.source.targetRevision }}
     {{- with .tool }}
     {{- . | toYaml | nindent 4 }}
     {{- end }}

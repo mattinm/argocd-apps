@@ -5,3 +5,6 @@ config:
     source:
       repoURL: https://github.com/mattinm/argcd-apps
       targetRevision: master
+
+applications:
+  - name: cert-manager
