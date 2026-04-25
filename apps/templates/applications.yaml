@@ -6,19 +6,25 @@ metadata:
   name: {{ .name | quote }}
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: {{ .namespace | default .name | quote }}
     server: {{ $config.spec.destination.server | quote }}
   project: default
   source:
-    path: {{ .path | default .name | quote }}
-    repoURL: {{ $config.spec.source.repoURL }}
-    targetRevision: {{ $config.spec.source.targetRevision }}
-    {{- with .tool }}
-    {{- . | toYaml | nindent 4 }}
-    {{- end }}
+    - repoURL: {{ .helm.repoURL | quote }}
+      chart: {{ .helm.chart }}
+      targetRevision: {{ .helm.targetRevision }}
+      helm:
+        valueFiles:
+          {{- range (.helm).valueFiles | default $config.spec.source.helm.valueFiles }}
+          - {{ . }}
+          {{- end }}
+    - path: {{ .path | default .name | quote }}
+      repoURL: {{ $config.spec.source.repoURL | quote }}
+      targetRevision: {{ $config.spec.source.targetRevision }}
+      ref: values
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

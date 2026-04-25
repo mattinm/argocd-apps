@@ -5,6 +5,13 @@ config:
     source:
       repoURL: https://github.com/mattinm/argocd-apps.git
       targetRevision: main
+      helm:
+        valueFiles:
+          - $values/values.yaml
 
 applications:
   - name: cert-manager
+    helm:
+      repoURL: oci://quay.io/jetstack/charts/cert-manager
+      chart: cert-manager
+      targetRevision: v1.20.2
