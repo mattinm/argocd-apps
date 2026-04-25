@@ -5,8 +5,10 @@ kind: Application
 metadata:
   name: {{ .name | quote }}
   namespace: argocd
+  {{- if not (.finalizers).disabled }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  {{- end }}
 spec:
   destination:
     namespace: {{ .namespace | default .name | quote }}

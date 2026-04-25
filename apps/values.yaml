@@ -17,3 +17,6 @@ applications:
       targetRevision: v1.20.2
   - name: cluster-issuer
     namespace: cert-manager 
+  - name: argocd 
+    finalizers:
+      disabled: true
