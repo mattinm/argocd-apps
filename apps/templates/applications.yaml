@@ -12,7 +12,7 @@ spec:
     namespace: {{ .namespace | default .name | quote }}
     server: {{ $config.spec.destination.server | quote }}
   project: default
-  source:
+  sources:
     - repoURL: {{ .helm.repoURL | quote }}
       chart: {{ .helm.chart }}
       targetRevision: {{ .helm.targetRevision }}
