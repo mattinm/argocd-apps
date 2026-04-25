@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: longhorn-system
 
 resources:
-- base/longhorn-ingress.yaml
+- base/ingress.yaml
