@@ -5,4 +5,3 @@ namespace: longhorn-system
 
 resources:
   - base/ingress.yaml
-  - base/storage-class.yaml
