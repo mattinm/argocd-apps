@@ -15,3 +15,5 @@ applications:
       repoURL: oci://quay.io/jetstack/charts/cert-manager
       chart: cert-manager
       targetRevision: v1.20.2
+  - name: cluster-issuer
+    namespace: cert-manager 

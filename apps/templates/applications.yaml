@@ -12,6 +12,7 @@ spec:
     namespace: {{ .namespace | default .name | quote }}
     server: {{ $config.spec.destination.server | quote }}
   project: default
+  {{- if (.helm).chart }}
   sources:
     - repoURL: {{ .helm.repoURL | quote }}
       chart: {{ .helm.chart }}
@@ -19,7 +20,7 @@ spec:
       helm:
         valueFiles:
         {{- if (.helm).valueFiles }}
-          {{- range (.helm).valueFiles }} 
+          {{- range .helm.valueFiles }} 
           - {{ . }}
           {{- end }}
         {{- else }}
@@ -28,6 +29,12 @@ spec:
     - repoURL: {{ $config.spec.source.repoURL | quote }}
       targetRevision: {{ $config.spec.source.targetRevision }}
       ref: values
+  {{- else }}
+  source:
+    path: {{ .path | default .name | quote }}
+    repoURL: {{ $config.spec.source.repoURL }}
+    targetRevision: {{ $config.spec.source.targetRevision }}
+  {{- end }}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

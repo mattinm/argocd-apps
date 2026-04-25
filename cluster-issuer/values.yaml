@@ -1,0 +1,5 @@
+name: letsencrypt
+namespace: cert-manager
+server: https://acme-v02.api.letsencrypt.org/directory
+email: marshall.mattingly@gmail.com
+apiTokenSecret: cloudflare-api-token
