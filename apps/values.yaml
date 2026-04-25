@@ -21,3 +21,9 @@ applications:
     serverside: true
     finalizers:
       disabled: true
+  - name: longhorn
+    namespace: longhorn-system
+    helm:
+      repoURL: https://charts.longhorn.io/
+      chart: longhorn
+      targetRevision: v1.11.1
