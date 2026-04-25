@@ -18,11 +18,14 @@ spec:
       targetRevision: {{ .helm.targetRevision }}
       helm:
         valueFiles:
-          {{- range (.helm).valueFiles | default $config.spec.source.helm.valueFiles }}
+        {{- if (.helm).valueFiles }}
+          {{- range (.helm).valueFiles }} 
           - {{ . }}
           {{- end }}
-    - path: {{ .path | default .name | quote }}
-      repoURL: {{ $config.spec.source.repoURL | quote }}
+        {{- else }}
+          - $values/{{ .path | default .name }}/values.yaml
+        {{- end }}
+    - repoURL: {{ $config.spec.source.repoURL | quote }}
       targetRevision: {{ $config.spec.source.targetRevision }}
       ref: values
   syncPolicy:
