@@ -1,0 +1,44 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-buffering
+spec:
+  buffering:
+    # Allows backing image uploads up to 10,000MB
+    maxRequestBodyBytes: 10485760000
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: longhorn
+spec:
+  secretName: longhorn-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  commonName: longhorn.mattinm.com
+  dnsNames:
+    - longhorn.mattinm.com
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`longhorn.mattinm.com`)
+      middlewares:
+        - name: longhorn-buffering
+          namespace: longhorn-system
+      services:
+        - name: longhorn-frontend
+          kind: Service
+          namespace: longhorn-system
+          port: 80
+  tls:
+    secretName: longhorn-tls
