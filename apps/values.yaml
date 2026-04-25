@@ -18,5 +18,6 @@ applications:
   - name: cluster-issuer
     namespace: cert-manager 
   - name: argocd 
+    serverside: true
     finalizers:
       disabled: true
