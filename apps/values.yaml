@@ -29,3 +29,5 @@ applications:
       targetRevision: v1.11.1
   - name: longhorn-config
     namespace: longhorn-system
+  - name: traefik
+    namespace: kube-system

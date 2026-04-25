@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik
+spec:
+  secretName: traefik-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  commonName: traefik.mattinm.com
+  dnsNames:
+    - traefik.mattinm.com
+  
