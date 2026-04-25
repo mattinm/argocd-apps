@@ -1,0 +1,7 @@
+config:
+  spec:
+    destination:
+      server: https://kubernetes.default.svc
+    source:
+      repoURL: https://github.com/mattinm/argcd-apps
+      targetRevision: master
